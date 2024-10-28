@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-
+# Please note this script is based on decommishioned version of Meraki API V0. 
+# This script probably won't work but was the basis for comparision of the working script.
 import json
 import requests
 import time
