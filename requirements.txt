@@ -1,0 +1,4 @@
+requests>=2.32.3
+meraki>=1.49.0
+python-dotenv>=1.0.1
+
