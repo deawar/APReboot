@@ -11,11 +11,14 @@ import meraki
 
 def display_help():
     help_text = """
-    Usage: AutoAPReboot.py [OPTIONS]
+    Usage: AutoAPReboot.py [OPTIONS] <CONFIG_FILE>
 
     Options:
       --all           Reboot all devices in the specified networks.
       --help          Display this help message.
+
+    Arguments:
+      CONFIG_FILE     Path to the JSON configuration file containing network details.
 
     Description:
       This script reboots access points in multiple Meraki networks based on
@@ -31,8 +34,11 @@ def display_help():
       - tags: List of tags to filter devices (leave empty to reboot all)
 
     Examples:
-      Reboot all devices in all networks:
-        python AutoAPReboot.py --all
+      Reboot all devices in all networks specified in config.json:
+        python AutoAPReboot.py --all config.json
+      
+      Reboot just devices with tags specified in config.json file(can be anyname.json):
+        python AutoAPReboot.py myNetwork.json  
     """
     print(help_text)
 
@@ -96,15 +102,23 @@ def main():
     if '--help' in sys.argv:
         display_help()
         sys.exit(0)
-    
-    reboot_all = '--all' in sys.argv
 
-    # Load networks from a JSON file
+    # Check if configuration file is specified
+    if len(sys.argv) < 2 or (len(sys.argv) == 2 and sys.argv[1] in ['--all', '--help']):
+        print("Error: Missing JSON configuration file.")
+        display_help()
+        sys.exit(1)
+    
+    # Determine the reboot mode and configuration file path
+    reboot_all = '--all' in sys.argv
+    config_file = sys.argv[-1]  # Last argument should be the JSON config file
+
+    # Load networks from the specified JSON file
     try:
-        with open('networks.json', 'r') as f:
+        with open(config_file, 'r') as f:
             networks = json.load(f)
     except Exception as e:
-        error_msg = f"Failed to load network configurations from 'networks.json'. Exception: {e}"
+        error_msg = f"Failed to load network configurations from '{config_file}'. Exception: {e}"
         write_log(error_msg)
         print(f"Error: {error_msg}")
         sys.exit(1)

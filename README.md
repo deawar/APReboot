@@ -1,5 +1,5 @@
 # APReboot
-Script to automate Meraki AP reboots on a schedule using an automation tool like CRON.
+Script to automate Meraki AP reboots on a schedule using an automation tool like CRON that can do multiple networks supplied in a networks.json file. The script expects the JSON configuration file path as the last command-line argument.
 
 ## Script Forked from:
 This script is based off the Meraki API documentation and the Script of DBMandrake on the MerakiTech Forums.
@@ -15,7 +15,7 @@ All the api calls were created using the Meraki API V1 Index at https://develope
 ## Prerequisites
 - Meraki Dashboard access
 - Meraki API key
-- Meraki Network ID - this is not explicitly needed
+- Meraki Network ID 
 - Meraki Organization ID
 
 ## Get started
@@ -32,41 +32,56 @@ python3 -m pip install -r requirements.txt
 └── APReboot/
 +   ├── .env
     ├── requirements.txt
+    ├── sample.json
     └── AutoAPReboot.py  
 ```
-4. In the ```.env``` file, add the following variables:
+4. Edit the ```sample_config.env``` file and rename to ```.env``` file, add the following variable:
 ```environment
 #.env
 ---
 apiKey = "Your_API_Key"
-
-orgName = "Name_of_Org_Houseing_APs_to_be_Rebooted"
-networkId = "L_networkId"
-organizationId = "orgId"
+```
+5. Edit the ```networks.json``` file and add your network info:
+```
+[
+    {
+        "networkId": "L_networkId",
+        "organizationId": "organizationId1",
+        "orgName": "Name_of_Org_Houseing_APs_to_be_Rebooted",
+        "tags": ["<tag-name>"]
+    },
+    {
+        "networkId": "L_networkId2",
+        "organizationId": "organizationId2",
+        "orgName": "Name_of_Org_Houseing_APs_to_be_Rebooted",
+        "tags": ["<tag-name>"]
+    },
+    {
+        "networkId": "L_networkId3",
+        "organizationId": "organizationId3",
+        "orgName": "Name_of_Org_Houseing_APs_to_be_Rebooted",
+        "tags": ["<tag-name>"]
+    }
+]
 ```
 
-5. Now you can run the code by using the following command:
+6. If no JSON file is provided, or if it fails to load, an error is printed, and the script exits. Now you can run the code by using the following command:
 ```console
-python3 AutoAPReboot.py
+python3 AutoAPReboot.py -ALL config.json
 or 
-python AutoAPReboot.py
+python AutoAPReboot.py networks.json
 ```
 ## Output
 If you have added Tags to your AccessPoints then this will find them and report them in the inital output.
 Suggested format <orgName-AP>, where orgName is the name of the organization of the AP's you want to reboot.
 The output should be as followed:
 ```
-$ python AutoAPReboot.py
-11:56:06 29-10-2024
-Available Tags:
+$ python AutoAPReboot.py networks.json
 
-recently-added
-<OrganizationName>-AP
-
-Enter Tag of APs to reboot or press enter for all APs: Traceback (most recent call last): *-AP
+Processing network '<orgName>' (Network ID: <networkId>)...
 
 
 ```
 ## Author and Contributors
-This script was written/copied by Dean Warren from DBMandrake.
+This script was written/copied by Dean Warren from DBMandrake. ChatGPT was used to make modifications but the original script was DBMandrake's. 
 
