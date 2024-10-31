@@ -41,7 +41,7 @@ python3 -m pip install -r requirements.txt
 ---
 apiKey = "Your_API_Key"
 ```
-5. Edit the ```networks.json``` file and add your network info:
+5. Edit the ```sample.json``` file or the ```networks.json``` file and add your network info:
 ```
 [
     {
