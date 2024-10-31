@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Script based on DBMandrake original script and edited and updated by
+# Dean Warren and ChatGPT
+# Github Repo: https://github.com/deawar/APReboot
 
 import json
 import requests
