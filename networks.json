@@ -1,20 +1,8 @@
 [
     {
-        "networkId": "L_580401401977375891",
-        "organizationId": "138906",
-        "orgName": "CTS",
-        "tags": ["-AP"]
-    },
-    {
-        "networkId": "L_580401401977375891",
-        "organizationId": "624874448297657286",
-        "orgName": "ENT of Athens",
-        "tags": ["ATHENS-AP"]
-    },
-    {
-        "networkId": "L_624874448297667208",
-        "organizationId": "624874448297657286",
-        "orgName": "ENT of Oconee",
-        "tags": ["OCNONEE-AP"]
+        "networkId": "L_YourTargetNetworkId",
+        "organizationId": "TargetOrgId",
+        "orgName": "OrgName",
+        "tags": ["<Tag-On-AP>"]
     }
 ]
